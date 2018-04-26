@@ -2,8 +2,7 @@
 class Bird {
   constructor() {
     this.bird = document.createElement("img");
-    this.bird.src =
-      "http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif";
+    this.bird.src = "http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif";
     this.bird.id = "bird";
     this.bird.style.position = "fixed";
     // initialize size of bird
@@ -57,12 +56,19 @@ const randomNumber = () => {
 let score = 0;
 const scoreDiv = document.createElement("div");
 scoreDiv.style.position = "fixed";
-scoreDiv.style.bottom = "100px";
-scoreDiv.style.right = "100px";
+scoreDiv.style.bottom = "15px";
+scoreDiv.style.right = "15px";
 scoreDiv.style.backgroundColor = "black";
 scoreDiv.style.color = "white";
 scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
 scoreDiv.style.zIndex = "100";
+scoreDiv.style.width = "150px";
+scoreDiv.style.height = "40px";
+scoreDiv.style.textAlign = "center";
+scoreDiv.style.fontSize = "25px";
+scoreDiv.style.fontFamily = "Arial";
+scoreDiv.style.borderRadius = "3px";
+scoreDiv.style.opacity = ".75";
 document.body.appendChild(scoreDiv);
 // add on click to bird
 document.getElementById("bird").addEventListener("click", function() {
@@ -117,11 +123,11 @@ replaceTextOnPage("you", "y'all");
 replaceTextOnPage("You", "Y'all");
 replaceTextOnPage("hello", "howdy");
 replaceTextOnPage("Hello", "Howdy");
-replaceTextOnPage("to", "ta");
+// replaceTextOnPage("to", "ta"); // disrupting css on google.com
 replaceTextOnPage("your", "yer");
 replaceTextOnPage("Your", "Yer");
-replaceTextOnPage("ing", "in'");
+// replaceTextOnPage("ing", "in'"); // disrupting css on google.com
 replaceTextOnPage("I'm", "imma");
 replaceTextOnPage("the", "tha");
 replaceTextOnPage("The", "Tha");
-replaceTextOnPage("er", "a");
+// replaceTextOnPage("er", "a"); // disrupting css on google.com
