@@ -3,7 +3,7 @@ class Bird {
   constructor() {
     this.bird = document.createElement("img");
     this.bird.src =
-      "http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif";
+      "https://opengameart.org/sites/default/files/GIF-sample.gif";
     this.bird.id = "bird";
     this.bird.style.position = "fixed";
     // initialize size of bird
@@ -13,8 +13,76 @@ class Bird {
     this.bird.style.zIndex = "9001";
     document.body.appendChild(this.bird);
   }
+
+  startListener() {
+    document.getElementById("bird").addEventListener("click", function() {
+      if (!friendMode) {
+        // Create dead bird image at the bottom of the screen at the same x position of clicked bird
+        let deadBird = document.createElement("img");
+        deadBird.style.height = "80px";
+        deadBird.style.width = "80px";
+        deadBird.style.position = "fixed";
+        let yPosition = document.getElementById("bird").getBoundingClientRect().top;
+        deadBird.style.top = yPosition + "px";
+        let xPosition = document.getElementById("bird").getBoundingClientRect()
+          .left;
+        deadBird.style.left = xPosition + "px";
+        deadBird.src =
+          "https://betanews.com/wp-content/uploads/2014/01/dead-bird.jpg";
+        document.body.appendChild(deadBird);
+        // Delete bird from document
+        var toDelete = document.getElementById("bird");
+        toDelete.parentElement.removeChild(toDelete);
+        // Fade and delete deadBird
+        var opacity = 1;
+        var timer2 = setInterval(() => {
+          opacity -= 0.05;
+          deadBird.style.opacity = opacity.toString();
+        }, 100);
+        setTimeout(function () {
+          deadBird.parentElement.removeChild(deadBird);
+          clearInterval(timer2);
+        }, 2000);
+        // Update score
+        score += 100;
+        scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
+        // Create new bird and start listener
+        setTimeout(function() {
+          obj = new Bird();
+          obj.startListener();
+        },2500);
+      } else {
+        // Create heart that floats upward and disappears
+        let heart = document.createElement("img");
+        heart.id = "heart";
+        heart.src = "https://png.icons8.com/cotton/2x/hearts.png";
+        heart.style.height = "100px";
+        heart.style.width = "100px";
+        heart.style.zIndex = "10000";
+        heart.style.opacity = "0.8";
+        heart.style.position = "fixed";
+        let yPosition = document.getElementById("bird").getBoundingClientRect().top;
+        heart.style.top = yPosition + "px";
+        let xPosition = document.getElementById("bird").getBoundingClientRect()
+          .left;
+        heart.style.left = xPosition + "px";
+        document.body.appendChild(heart);
+        // Update score
+        score += 100;
+        scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
+        // Animate upwards
+        var timer = setInterval(() => {
+          yPosition -= 1;
+          heart.style.top = yPosition + "px";
+        }, 5);
+        timer();
+        setTimeout(clearInterval(timer), 1000);
+      }
+    });
+  }
 }
 let obj = new Bird();
+obj.startListener();
 
 // bird moving variables
 let randomInsideTop = Math.floor(Math.random() * window.innerHeight - 100);
@@ -97,66 +165,78 @@ friendButton.style.opacity = ".75";
 document.body.appendChild(friendButton);
 
 // add on click to bird
-document.getElementById("bird").addEventListener("click", function() {
-  if (!friendMode) {
-    // Create dead bird image at the bottom of the screen at the same x position of clicked bird
-    let deadBird = document.createElement("img");
-    deadBird.style.height = "100px";
-    deadBird.style.width = "100px";
-    deadBird.style.position = "fixed";
-    let yPosition = document.getElementById("bird").getBoundingClientRect().top;
-    deadBird.style.top = yPosition + "px";
-    let xPosition = document.getElementById("bird").getBoundingClientRect()
-      .left;
-    deadBird.style.left = xPosition + "px";
-    deadBird.src =
-      "https://betanews.com/wp-content/uploads/2014/01/dead-bird.jpg";
-    document.body.appendChild(deadBird);
-    // Delete bird from document
-    var toDelete = document.getElementById("bird");
-    toDelete.parentElement.removeChild(toDelete);
-    // Create new bird
-    // obj = new Bird();
-    // Update score
-    score += 100;
-    scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
-  } else {
-    // Create heart that floats upward and disappears
-    let heart = document.createElement("img");
-    heart.id = "heart";
-    heart.src = "https://png.icons8.com/cotton/2x/hearts.png";
-    heart.style.height = "100px";
-    heart.style.width = "100px";
-    heart.style.zIndex = "10000";
-    heart.style.opacity = "0.8";
-    heart.style.position = "fixed";
-    let yPosition = document.getElementById("bird").getBoundingClientRect().top;
-    heart.style.top = yPosition + "px";
-    let xPosition = document.getElementById("bird").getBoundingClientRect()
-      .left;
-    heart.style.left = xPosition + "px";
-    document.body.appendChild(heart);
-    // Update score
-    score += 100;
-    scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
-    // Animate upwards
-    var timer = setInterval(() => {
-      yPosition -= 1;
-      heart.style.top = yPosition + "px";
-    }, 5);
-    timer();
-    setTimeout(clearInterval(timer), 1000);
-  }
-});
+// document.getElementById("bird").addEventListener("click", function() {
+//   if (!friendMode) {
+//     // Create dead bird image at the bottom of the screen at the same x position of clicked bird
+//     let deadBird = document.createElement("img");
+//     deadBird.style.height = "100px";
+//     deadBird.style.width = "100px";
+//     deadBird.style.position = "fixed";
+//     let yPosition = document.getElementById("bird").getBoundingClientRect().top;
+//     deadBird.style.top = yPosition + "px";
+//     let xPosition = document.getElementById("bird").getBoundingClientRect()
+//       .left;
+//     deadBird.style.left = xPosition + "px";
+//     deadBird.src =
+//       "https://betanews.com/wp-content/uploads/2014/01/dead-bird.jpg";
+//     document.body.appendChild(deadBird);
+//     // Delete bird from document
+//     var toDelete = document.getElementById("bird");
+//     toDelete.parentElement.removeChild(toDelete);
+//     // Fade and delete deadBird
+//     var opacity = 1;
+//     var timer2 = setInterval(() => {
+//       opacity -= 0.05;
+//       deadBird.style.opacity = opacity.toString();
+//     }, 100);
+//     setTimeout(function () {
+//       deadBird.parentElement.removeChild(deadBird);
+//       clearInterval(timer2);
+//     }, 3000);
+//     // Create new bird
+//     // obj = new Bird();
+//     // Update score
+//     score += 100;
+//     scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
+//   } else {
+//     // Create heart that floats upward and disappears
+//     let heart = document.createElement("img");
+//     heart.id = "heart";
+//     heart.src = "https://png.icons8.com/cotton/2x/hearts.png";
+//     heart.style.height = "100px";
+//     heart.style.width = "100px";
+//     heart.style.zIndex = "10000";
+//     heart.style.opacity = "0.8";
+//     heart.style.position = "fixed";
+//     let yPosition = document.getElementById("bird").getBoundingClientRect().top;
+//     heart.style.top = yPosition + "px";
+//     let xPosition = document.getElementById("bird").getBoundingClientRect()
+//       .left;
+//     heart.style.left = xPosition + "px";
+//     document.body.appendChild(heart);
+//     // Update score
+//     score += 100;
+//     scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
+//     // Animate upwards
+//     var timer = setInterval(() => {
+//       yPosition -= 1;
+//       heart.style.top = yPosition + "px";
+//     }, 5);
+//     timer();
+//     setTimeout(clearInterval(timer), 1000);
+//   }
+// });
 
 // Listener for button
 document.getElementById("friend").addEventListener("click", function() {
   if (friendMode) {
     friendMode = !friendMode;
     friendButton.innerHTML = "Friendly Mode";
+    obj.bird.src = 'https://opengameart.org/sites/default/files/GIF-sample.gif';
   } else {
     friendMode = !friendMode;
     friendButton.innerHTML = "Hunter Mode";
+    obj.bird.src = 'http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif';
   }
 });
 
