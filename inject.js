@@ -1,7 +1,8 @@
 
 // create the bird
 const bird = document.createElement("img");
-bird.src = "https://opengameart.org/sites/default/files/GIF-sample.gif";
+// bird.src = "https://opengameart.org/sites/default/files/GIF-sample.gif";
+bird.src = "http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif"
 bird.id = "bird";
 bird.style.position = "fixed";
 // initialze position of bird to top left
@@ -15,15 +16,19 @@ bird.style.zIndex = "9001";
 document.body.appendChild(bird);
 
 // bird moving variables
-let birdTop = 0;
-let birdLeft = 0;
+let randomInsideTop = Math.floor(Math.random() * window.innerHeight - 100);
+let randomInsideLeft = Math.floor(Math.random() * window.innerWidth - 150);
+let birdTop = randomInsideTop;
+let birdLeft = randomInsideLeft;
 let reverseLeft = false;
-let reverseRight = false;
+let reverseTop = false;
 // move the bird
 setInterval(() => {
-  if (birdTop === window.innerHeight - 50 || birdTop < 0) birdTop = 0;
-  if (birdLeft === window.innerWidth - 75 || birdLeft < 0) birdLeft = 0;
-  if (reverseRight) birdTop -= 1;
+  if (birdTop === window.innerHeight) birdTop = 0;
+  if (birdTop < -50) birdTop = window.innerHeight - 150;
+  if (birdLeft === window.innerWidth) birdLeft = 0;
+  if (birdLeft < -100) birdLeft = window.innerWidth - 200;
+  if (reverseTop) birdTop -= 1;
   else birdTop += 1;
   if (reverseLeft) birdLeft -= 1;
   else birdLeft += 1;
@@ -33,10 +38,13 @@ setInterval(() => {
 // change the birds direction randomly
 setInterval(() => {
   if (randomNumber() > 50) {
-    reverseRight = !reverseRight;
-    bird.style.rotate = "180deg";
+    reverseTop = !reverseTop;
   }
-  if (randomNumber() > 50) reverseLeft = !reverseLeft;
+  if (randomNumber() > 50) {
+	  reverseLeft = !reverseLeft;
+	  if (reverseLeft) bird.style.transform = 'scale(-1, 1)';
+	  if (!reverseLeft) bird.style.transform = 'scale(1, 1)';
+  	}
 }, 1000);
 
 // random number generator 0 - 99;
