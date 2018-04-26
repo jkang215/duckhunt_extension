@@ -121,24 +121,49 @@ const randomNumber = () => {
   return Math.floor(Math.random() * 100);
 };
 
-// create a score
+// create a score div
 let score = 0;
 const scoreDiv = document.createElement("div");
+scoreDiv.id = 'score-div';
 scoreDiv.style.position = "fixed";
 scoreDiv.style.bottom = "15px";
 scoreDiv.style.right = "15px";
 scoreDiv.style.backgroundColor = "black";
+scoreDiv.style.border = '1px solid pink';
 scoreDiv.style.color = "white";
-scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
-scoreDiv.style.zIndex = "100";
-scoreDiv.style.width = "150px";
+scoreDiv.style.zIndex = "9001";
+scoreDiv.style.width = "149px";
 scoreDiv.style.height = "40px";
 scoreDiv.style.textAlign = "center";
-scoreDiv.style.fontSize = "25px";
+scoreDiv.style.fontSize = "20px";
 scoreDiv.style.fontFamily = "Arial";
 scoreDiv.style.borderRadius = "3px";
 scoreDiv.style.opacity = ".75";
 document.body.appendChild(scoreDiv);
+// create score text
+const scoreText = document.createElement('p');
+scoreText.textContent = 'Score: ' + score;
+document.getElementById('score-div').appendChild(scoreText);
+// Creating button to start friendly mode
+let friendMode = false;
+const friendButton = document.createElement("button");
+friendButton.id = "friend";
+friendButton.style.position = "fixed";
+friendButton.style.bottom = "60px";
+friendButton.style.right = "15px";
+friendButton.style.backgroundColor = "pink";
+friendButton.style.border = '1px solid black';
+friendButton.innerHTML = "Friendly Mode";
+friendButton.style.zIndex = "9001";
+friendButton.style.width = "150px";
+friendButton.style.height = "40px";
+friendButton.style.textAlign = "center";
+friendButton.style.fontSize = "15px";
+friendButton.style.fontFamily = "Arial";
+friendButton.style.borderRadius = "3px";
+friendButton.style.opacity = ".75";
+document.body.appendChild(friendButton);
+
 // add on click to bird
 // document.getElementById("bird").addEventListener("click", function() {
 //   if (!friendMode) {
@@ -201,17 +226,6 @@ document.body.appendChild(scoreDiv);
 //     setTimeout(clearInterval(timer), 1000);
 //   }
 // });
-
-// Creating button to start friendly mode
-let friendMode = false;
-const friendButton = document.createElement("button");
-friendButton.id = "friend";
-friendButton.style.position = "fixed";
-friendButton.style.bottom = "100px";
-friendButton.style.right = "180px";
-friendButton.innerHTML = "Friendly Mode";
-friendButton.style.zIndex = "100";
-document.body.appendChild(friendButton);
 
 // Listener for button
 document.getElementById("friend").addEventListener("click", function() {
