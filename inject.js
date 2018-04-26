@@ -1,16 +1,3 @@
-// this is the code which will be injected into a given page...
-// (function() {
-// 	// just place a div at top right
-// 	var div = document.createElement('div');
-// 	div.style.position = 'fixed';
-// 	div.style.top = 0;
-// 	div.style.right = 0;
-// 	div.textContent = 'Injected!';
-// 	document.body.appendChild(div);
-
-// 	alert('inserted self... giggity');
-
-// })();
 
 // create the bird
 const bird = document.createElement("img");
@@ -52,7 +39,7 @@ setInterval(() => {
   if (randomNumber() > 50) reverseLeft = !reverseLeft;
 }, 1000);
 
-// random number generator 1 - 100;
+// random number generator 0 - 99;
 const randomNumber = () => {
   return Math.floor(Math.random() * 100);
 };
