@@ -2,7 +2,8 @@
 class Bird {
   constructor() {
     this.bird = document.createElement("img");
-    this.bird.src = "http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif";
+    this.bird.src =
+      "http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif";
     this.bird.id = "bird";
     this.bird.style.position = "fixed";
     // initialize size of bird
@@ -72,26 +73,77 @@ scoreDiv.style.opacity = ".75";
 document.body.appendChild(scoreDiv);
 // add on click to bird
 document.getElementById("bird").addEventListener("click", function() {
-  // Create dead bird image at the bottom of the screen at the same x position of clicked bird
-  let deadBird = document.createElement("img");
-  deadBird.style.height = "100px";
-  deadBird.style.width = "100px";
-  deadBird.style.position = "fixed";
-  let yPosition = document.getElementById("bird").getBoundingClientRect().top;
-  deadBird.style.top = yPosition + "px";
-  let xPosition = document.getElementById("bird").getBoundingClientRect().left;
-  deadBird.style.left = xPosition + "px";
-  deadBird.src =
-    "https://betanews.com/wp-content/uploads/2014/01/dead-bird.jpg";
-  document.body.appendChild(deadBird);
-  // Delete bird from document
-  var toDelete = document.getElementById("bird");
-  toDelete.parentElement.removeChild(toDelete);
-  // Create new bird
-  // obj = new Bird();
-  // Update score
-  score += 100;
-  scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
+  if (!friendMode) {
+    // Create dead bird image at the bottom of the screen at the same x position of clicked bird
+    let deadBird = document.createElement("img");
+    deadBird.style.height = "100px";
+    deadBird.style.width = "100px";
+    deadBird.style.position = "fixed";
+    let yPosition = document.getElementById("bird").getBoundingClientRect().top;
+    deadBird.style.top = yPosition + "px";
+    let xPosition = document.getElementById("bird").getBoundingClientRect()
+      .left;
+    deadBird.style.left = xPosition + "px";
+    deadBird.src =
+      "https://betanews.com/wp-content/uploads/2014/01/dead-bird.jpg";
+    document.body.appendChild(deadBird);
+    // Delete bird from document
+    var toDelete = document.getElementById("bird");
+    toDelete.parentElement.removeChild(toDelete);
+    // Create new bird
+    // obj = new Bird();
+    // Update score
+    score += 100;
+    scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
+  } else {
+    // Create heart that floats upward and disappears
+    let heart = document.createElement("img");
+    heart.id = "heart";
+    heart.src = "https://png.icons8.com/cotton/2x/hearts.png";
+    heart.style.height = "100px";
+    heart.style.width = "100px";
+    heart.style.zIndex = "10000";
+    heart.style.opacity = "0.8";
+    heart.style.position = "fixed";
+    let yPosition = document.getElementById("bird").getBoundingClientRect().top;
+    heart.style.top = yPosition + "px";
+    let xPosition = document.getElementById("bird").getBoundingClientRect()
+      .left;
+    heart.style.left = xPosition + "px";
+    document.body.appendChild(heart);
+    // Update score
+    score += 100;
+    scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
+    // Animate upwards
+    var timer = setInterval(() => {
+      yPosition -= 1;
+      heart.style.top = yPosition + "px";
+    }, 5);
+    timer();
+    setTimeout(clearInterval(timer), 1000);
+  }
+});
+
+// Creating button to start friendly mode
+let friendMode = false;
+const friendButton = document.createElement("button");
+friendButton.id = "friend";
+friendButton.style.position = "fixed";
+friendButton.style.bottom = "100px";
+friendButton.style.right = "180px";
+friendButton.innerHTML = "Friendly Mode";
+friendButton.style.zIndex = "100";
+document.body.appendChild(friendButton);
+
+// Listener for button
+document.getElementById("friend").addEventListener("click", function() {
+  if (friendMode) {
+    friendMode = !friendMode;
+    friendButton.innerHTML = "Friendly Mode";
+  } else {
+    friendMode = !friendMode;
+    friendButton.innerHTML = "Hunter Mode";
+  }
 });
 
 // translate the page to duck hunter speak
