@@ -5,9 +5,6 @@ const bird = document.createElement("img");
 bird.src = "http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif"
 bird.id = "bird";
 bird.style.position = "fixed";
-// initialze position of bird to top left
-bird.style.top = "0";
-bird.style.left = "50%";
 // initialize size of bird
 bird.style.width = "150px";
 bird.style.height = "100px";
@@ -51,3 +48,81 @@ setInterval(() => {
 const randomNumber = () => {
   return Math.floor(Math.random() * 100);
 };
+
+// create a score
+let score = 0;
+const scoreDiv = document.createElement('div');
+scoreDiv.style.position = 'fixed';
+scoreDiv.style.bottom = '100px';
+scoreDiv.style.right = '100px';
+scoreDiv.style.backgroundColor = 'black';
+scoreDiv.style.color = 'white';
+scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
+scoreDiv.style.zIndex = '100';
+document.body.appendChild(scoreDiv);
+// add on click to bird
+document.getElementById('bird').addEventListener('click', function() {
+  // Create dead bird image at the bottom of the screen at the same x position of clicked bird
+  let deadBird = document.createElement('img');
+  deadBird.style.height = '100px';
+  deadBird.style.width = '100px';
+  deadBird.style.position = 'fixed';
+  let yPosition = document.getElementById('bird').getBoundingClientRect().top;
+  deadBird.style.top = yPosition + "px";
+  let xPosition = document.getElementById('bird').getBoundingClientRect().left;
+  deadBird.style.left = xPosition + "px";
+  deadBird.src = 'https://betanews.com/wp-content/uploads/2014/01/dead-bird.jpg';
+  document.body.appendChild(deadBird);
+  // Delete bird from document
+  var toDelete = document.getElementById('bird');
+  toDelete.parentElement.removeChild(toDelete);
+  // Create new bird
+  // Update score
+  score += 100;
+  scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
+});
+
+// let hick = document.createElement('div');
+// hick.innerHTML = '<iframe src="http://lingojam.com/embed/" style="width:700px; height:300px;"></iframe>';
+// hick.style.zIndex = '1000000';
+// document.body.appendChild(hick);
+
+// translate the page to duck hunter speak
+function replaceTextOnPage(from, to){
+	getAllTextNodes().forEach(function(node){
+	  node.nodeValue = node.nodeValue.replace(new RegExp(quote(from), 'g'), to);
+	});
+  
+	function getAllTextNodes(){
+	  var result = [];
+  
+	  (function scanSubTree(node){
+		if(node.childNodes.length) 
+		  for(var i = 0; i < node.childNodes.length; i++) 
+			scanSubTree(node.childNodes[i]);
+		else if(node.nodeType == Node.TEXT_NODE) 
+		  result.push(node);
+	  })(document);
+  
+	  return result;
+	}
+  
+	function quote(str){
+	  return (str+'').replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+	}
+  }
+
+  // pick the words to replace
+  replaceTextOnPage('you', "y'all");
+  replaceTextOnPage('You', "Y'all");
+  replaceTextOnPage('hello', "howdy");
+  replaceTextOnPage('Hello', "Howdy");
+  replaceTextOnPage('to', "ta");
+  replaceTextOnPage('your', "yer");
+  replaceTextOnPage('Your', "Yer");
+  replaceTextOnPage('ing', "in'");
+  replaceTextOnPage("I'm", "imma");
+  replaceTextOnPage("the", "tha");
+  replaceTextOnPage("The", "Tha");
+  replaceTextOnPage("er", "a");
+
