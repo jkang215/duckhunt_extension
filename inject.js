@@ -1,16 +1,20 @@
-
 // create the bird
-const bird = document.createElement("img");
-// bird.src = "https://opengameart.org/sites/default/files/GIF-sample.gif";
-bird.src = "http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif"
-bird.id = "bird";
-bird.style.position = "fixed";
-// initialize size of bird
-bird.style.width = "150px";
-bird.style.height = "100px";
-// make sure bird is on top of all other elements
-bird.style.zIndex = "9001";
-document.body.appendChild(bird);
+class Bird {
+  constructor() {
+    this.bird = document.createElement("img");
+    this.bird.src =
+      "http://bestanimations.com/Animals/Birds/Doves/animated-dove-gif-9.gif";
+    this.bird.id = "bird";
+    this.bird.style.position = "fixed";
+    // initialize size of bird
+    this.bird.style.width = "150px";
+    this.bird.style.height = "100px";
+    // make sure bird is on top of all other elements
+    this.bird.style.zIndex = "9001";
+    document.body.appendChild(this.bird);
+  }
+}
+let obj = new Bird();
 
 // bird moving variables
 let randomInsideTop = Math.floor(Math.random() * window.innerHeight - 100);
@@ -29,8 +33,8 @@ setInterval(() => {
   else birdTop += 1;
   if (reverseLeft) birdLeft -= 1;
   else birdLeft += 1;
-  bird.style.top = birdTop.toString() + "px";
-  bird.style.left = birdLeft.toString() + "px";
+  obj.bird.style.top = birdTop.toString() + "px";
+  obj.bird.style.left = birdLeft.toString() + "px";
 }, 5);
 // change the birds direction randomly
 setInterval(() => {
@@ -38,10 +42,10 @@ setInterval(() => {
     reverseTop = !reverseTop;
   }
   if (randomNumber() > 50) {
-	  reverseLeft = !reverseLeft;
-	  if (reverseLeft) bird.style.transform = 'scale(-1, 1)';
-	  if (!reverseLeft) bird.style.transform = 'scale(1, 1)';
-  	}
+    reverseLeft = !reverseLeft;
+    if (reverseLeft) obj.bird.style.transform = "scale(-1, 1)";
+    if (!reverseLeft) obj.bird.style.transform = "scale(1, 1)";
+  }
 }, 1000);
 
 // random number generator 0 - 99;
@@ -51,78 +55,73 @@ const randomNumber = () => {
 
 // create a score
 let score = 0;
-const scoreDiv = document.createElement('div');
-scoreDiv.style.position = 'fixed';
-scoreDiv.style.bottom = '100px';
-scoreDiv.style.right = '100px';
-scoreDiv.style.backgroundColor = 'black';
-scoreDiv.style.color = 'white';
+const scoreDiv = document.createElement("div");
+scoreDiv.style.position = "fixed";
+scoreDiv.style.bottom = "100px";
+scoreDiv.style.right = "100px";
+scoreDiv.style.backgroundColor = "black";
+scoreDiv.style.color = "white";
 scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
-scoreDiv.style.zIndex = '100';
+scoreDiv.style.zIndex = "100";
 document.body.appendChild(scoreDiv);
 // add on click to bird
-document.getElementById('bird').addEventListener('click', function() {
+document.getElementById("bird").addEventListener("click", function() {
   // Create dead bird image at the bottom of the screen at the same x position of clicked bird
-  let deadBird = document.createElement('img');
-  deadBird.style.height = '100px';
-  deadBird.style.width = '100px';
-  deadBird.style.position = 'fixed';
-  let yPosition = document.getElementById('bird').getBoundingClientRect().top;
+  let deadBird = document.createElement("img");
+  deadBird.style.height = "100px";
+  deadBird.style.width = "100px";
+  deadBird.style.position = "fixed";
+  let yPosition = document.getElementById("bird").getBoundingClientRect().top;
   deadBird.style.top = yPosition + "px";
-  let xPosition = document.getElementById('bird').getBoundingClientRect().left;
+  let xPosition = document.getElementById("bird").getBoundingClientRect().left;
   deadBird.style.left = xPosition + "px";
-  deadBird.src = 'https://betanews.com/wp-content/uploads/2014/01/dead-bird.jpg';
+  deadBird.src =
+    "https://betanews.com/wp-content/uploads/2014/01/dead-bird.jpg";
   document.body.appendChild(deadBird);
   // Delete bird from document
-  var toDelete = document.getElementById('bird');
+  var toDelete = document.getElementById("bird");
   toDelete.parentElement.removeChild(toDelete);
   // Create new bird
+  // obj = new Bird();
   // Update score
   score += 100;
   scoreDiv.innerHTML = "<p>Score: " + score + "</p>";
 });
 
-// let hick = document.createElement('div');
-// hick.innerHTML = '<iframe src="http://lingojam.com/embed/" style="width:700px; height:300px;"></iframe>';
-// hick.style.zIndex = '1000000';
-// document.body.appendChild(hick);
-
 // translate the page to duck hunter speak
-function replaceTextOnPage(from, to){
-	getAllTextNodes().forEach(function(node){
-	  node.nodeValue = node.nodeValue.replace(new RegExp(quote(from), 'g'), to);
-	});
-  
-	function getAllTextNodes(){
-	  var result = [];
-  
-	  (function scanSubTree(node){
-		if(node.childNodes.length) 
-		  for(var i = 0; i < node.childNodes.length; i++) 
-			scanSubTree(node.childNodes[i]);
-		else if(node.nodeType == Node.TEXT_NODE) 
-		  result.push(node);
-	  })(document);
-  
-	  return result;
-	}
-  
-	function quote(str){
-	  return (str+'').replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
-	}
+function replaceTextOnPage(from, to) {
+  getAllTextNodes().forEach(function(node) {
+    node.nodeValue = node.nodeValue.replace(new RegExp(quote(from), "g"), to);
+  });
+
+  function getAllTextNodes() {
+    var result = [];
+
+    (function scanSubTree(node) {
+      if (node.childNodes.length)
+        for (var i = 0; i < node.childNodes.length; i++)
+          scanSubTree(node.childNodes[i]);
+      else if (node.nodeType == Node.TEXT_NODE) result.push(node);
+    })(document);
+
+    return result;
   }
 
-  // pick the words to replace
-  replaceTextOnPage('you', "y'all");
-  replaceTextOnPage('You', "Y'all");
-  replaceTextOnPage('hello', "howdy");
-  replaceTextOnPage('Hello', "Howdy");
-  replaceTextOnPage('to', "ta");
-  replaceTextOnPage('your', "yer");
-  replaceTextOnPage('Your', "Yer");
-  replaceTextOnPage('ing', "in'");
-  replaceTextOnPage("I'm", "imma");
-  replaceTextOnPage("the", "tha");
-  replaceTextOnPage("The", "Tha");
-  replaceTextOnPage("er", "a");
+  function quote(str) {
+    return (str + "").replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
+  }
+}
 
+// pick the words to replace
+replaceTextOnPage("you", "y'all");
+replaceTextOnPage("You", "Y'all");
+replaceTextOnPage("hello", "howdy");
+replaceTextOnPage("Hello", "Howdy");
+replaceTextOnPage("to", "ta");
+replaceTextOnPage("your", "yer");
+replaceTextOnPage("Your", "Yer");
+replaceTextOnPage("ing", "in'");
+replaceTextOnPage("I'm", "imma");
+replaceTextOnPage("the", "tha");
+replaceTextOnPage("The", "Tha");
+replaceTextOnPage("er", "a");
