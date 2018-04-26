@@ -11,3 +11,13 @@
 	alert('inserted self... giggity');
 
 })();
+
+// create the bird
+const bird = document.createElement('img');
+bird.src = 'https://opengameart.org/sites/default/files/GIF-sample.gif';
+document.body.appendChild(bird);
+
+// move the bird every two seconds
+setInterval(() => {
+
+}, 2000);
