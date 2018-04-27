@@ -32,9 +32,9 @@ class Bird {
         document.body.appendChild(deadBird);
         // Delete bird from document
         var toDelete = document.getElementById("bird");
-		toDelete.parentElement.removeChild(toDelete);
-		// disable hunter button
-		friendButton.disabled = true;
+        toDelete.parentElement.removeChild(toDelete);
+        // disable hunter button
+        friendButton.disabled = true;
         // Fade and delete deadBird
         var opacity = 1;
         var timer2 = setInterval(() => {
